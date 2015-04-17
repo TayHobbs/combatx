@@ -1,1 +1,9 @@
-{{outlet}}
+{{#each users as |user|}}
+  {{user.name}}
+{{/each}}
+<br>
+
+{{input value=model.name}}
+{{input value=model.age}}
+
+<button {{action "createUser"}}>Create</button>
