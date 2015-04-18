@@ -10,6 +10,13 @@ module.exports = {
     Color.create({ name:'Red' }).exec(function createCB(err, created) {
       console.log('Created user with name ' + created.name);
     });
+  },
+
+  index: function(req, res) {
+    Color.find(function(err, colors) {
+      return res.view({ colors: colors });
+    });
   }
+
 };
 
