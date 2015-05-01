@@ -9,6 +9,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "sails-postgresql": "^0.10.14",
     "sane-cli": "0.0.24"
   }
 }
