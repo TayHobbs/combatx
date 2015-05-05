@@ -1,0 +1,17 @@
+body {
+  padding: 10px;
+}
+
+.main-header {
+  margin-bottom: 15px;
+}
+
+.new-ticket {
+  background: white;
+  border-top: 3px solid #2196F3;
+  padding: 20px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

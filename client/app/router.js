@@ -6,6 +6,5 @@ var Router = Ember.Router.extend({
 });
 
 export default Router.map(function() {
-  this.resource('player', function() {});
-  this.route('battle');
+  this.route('players', { path: '/' });
 });
