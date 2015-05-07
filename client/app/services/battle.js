@@ -12,8 +12,8 @@ export default Ember.Service.extend({
   },
 
   // Registers the socket
-  setup: function () {
-    io.socket.get(this.apiUrl);
-  }
+  // setup: function () {
+  //   io.socket.get(this.apiUrl);
+  // }
 
 });
