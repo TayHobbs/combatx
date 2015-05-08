@@ -8,8 +8,11 @@ export default Ember.Component.extend({
     });
 
     io.socket.on('player', (message) => {
-      if(message.verb === "created") {
+      if (message.verb === 'created') {
         this.get('players').pushObject(message.data);
+      }
+      if (message.verb === 'updated') {
+        this.set('players', Ember.A([message.data]));
       }
     });
 

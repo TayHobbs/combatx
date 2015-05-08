@@ -5,16 +5,6 @@ export default Ember.Route.extend({
 
   model() {
     return this.get('battle').find();
-  },
-
-  actions: {
-    addPlayer() {
-      let player = {
-        name: 'Player 1',
-        health: 100
-      };
-      this.get('battle').save(player);
-    }
   }
 
 });
