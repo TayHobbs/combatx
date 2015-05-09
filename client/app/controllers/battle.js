@@ -1,7 +1,23 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+  battle:  Ember.inject.service(),
   enemies: Ember.inject.service(),
+
+  currentPlayers: Ember.computed(function() {
+    let currentPlayers = Ember.A([]);
+    this.get('battle').find().then((players) => {
+     players.forEach((player) => {
+       currentPlayers.pushObject(player);
+     });
+    });
+    return currentPlayers;
+  }),
+
+  loggedIn: Ember.computed('localStorageProxy.username', function() {
+    if (!this.get('localStorageProxy.username')) { return false; }
+    return this.get('localStorageProxy.username');
+  }),
 
   setup: function () {
     io.socket.get('/api/v1/player');
@@ -25,16 +41,22 @@ export default Ember.Controller.extend({
 
     io.socket.on('player', (message) => {
       if (message.verb === 'created') {
-        this.get('model').pushObject(message.data);
-      }
-      if (message.verb === 'updated') {
-        this.set('model', Ember.A([message.data]));
+        this.get('currentPlayers').pushObject(message.data);
       }
     });
 
   }.on('init'),
 
   actions: {
+    login() {
+      this.set('localStorageProxy.username', this.get('username'));
+      let player = {
+        name: this.get('username'),
+        health: 100
+      };
+      this.get('battle').save(player);
+    },
+
     attack() {
       let oldHealth = this.get('model').get('firstObject').health;
       let name      = this.get('model').get('firstObject').name;

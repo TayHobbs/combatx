@@ -24,7 +24,15 @@ export default Ember.Service.extend({
   },
 
   find() {
-    return Ember.$.getJSON(this.apiUrl);
+    let apiUrl = this.apiUrl;
+    return Ember.$.ajax({
+      method: 'GET',
+      url: apiUrl,
+      success: (data) => {
+        return data;
+      }
+    });
+    // return Ember.$.getJSON(this.apiUrl);
   },
 
   // Registers the socket

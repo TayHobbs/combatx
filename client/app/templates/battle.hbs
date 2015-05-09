@@ -1,3 +1,4 @@
+{{#if loggedIn}}
 {{#each model as |enemy|}}
   {{enemy.name}} <br>
   Health: {{enemy.health}}
@@ -12,4 +13,9 @@
 <br>
 <br>
 
-{{outlet}}
+{{current-players players=currentPlayers}}
+{{else}}
+  {{input value=username}}
+<button {{action "login"}}>Join the battle!</button>
+
+{{/if}}
