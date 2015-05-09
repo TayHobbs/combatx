@@ -41,17 +41,20 @@ export default Ember.Controller.extend({
       let id        = this.get('model').get('firstObject').id;
       let player    = { id: id, name: name, health: oldHealth - 10 };
 
-      if (oldHealth - 10 === 0) {
+      if (oldHealth - 10 <= 0) {
         this.get('enemies').destroy(player);
-        this.set('defeated', true);
       } else {
         this.get('enemies').update(player);
       }
     },
+
     newEnemy() {
-      let enemy = { name: 'Brothgar', health: 100 };
+      let enemy = {
+        name: Ember.A(['Brothgar', 'Krag\'Nor', 'LagLear']).objectAt(Math.round(Math.random() * 2)),
+        health: Math.round(Math.random() * (10 - 30) * -10)
+      };
+
       this.get('enemies').save(enemy);
-      this.set('defeated', false);
     }
   }
 
