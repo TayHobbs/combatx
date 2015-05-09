@@ -2,5 +2,6 @@
   {{player.name}} <br>
   Health: {{player.health}}
 {{/each}}
-<br>
-<button {{action "attack"}}>Attack!</button>
+
+{{input value=name}}
+<button {{action "addPlayer"}}>Join the Fray</button>

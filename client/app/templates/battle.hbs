@@ -1,0 +1,15 @@
+{{#each model as |enemy|}}
+  {{enemy.name}} <br>
+  Health: {{enemy.health}}
+  <br>
+  <br>
+  <button {{action "attack"}}>Attack!</button>
+{{else}}
+  <h3>Defeated!</h3>
+  <button {{action "newEnemy"}}>New Enemy</button>
+{{/each}}
+
+<br>
+<br>
+
+{{outlet}}

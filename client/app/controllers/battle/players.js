@@ -2,23 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
   battle: Ember.inject.service(),
-
-  setup: function () {
-    io.socket.get('/api/v1/player');
-    io.socket.on('connect', () => {
-      Ember.Logger.debug('combatx component is listening for socket.io events');
-    });
-
-    io.socket.on('player', (message) => {
-      if (message.verb === 'created') {
-        this.get('model').pushObject(message.data);
-      }
-      if (message.verb === 'updated') {
-        this.set('model', Ember.A([message.data]));
-      }
-    });
-
-  }.on('init'),
+  enemies: Ember.inject.service(),
 
   actions: {
     addPlayer() {
@@ -32,7 +16,11 @@ export default Ember.Controller.extend({
       let id        = this.get('model').get('firstObject').id;
       let player    = { id: id, name: name, health: oldHealth - 10 };
 
-      this.get('battle').update(player);
+      this.get('enemies').update(player);
+    },
+    newEnemy() {
+      let enemy = { name: 'Brothgar', health: 100 };
+      this.get('enemies').save(enemy);
     }
   }
 
