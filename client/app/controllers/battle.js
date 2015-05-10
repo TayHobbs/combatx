@@ -1,12 +1,12 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  battle:  Ember.inject.service(),
+  players:  Ember.inject.service(),
   enemies: Ember.inject.service(),
 
   currentPlayers: Ember.computed(function() {
     let currentPlayers = Ember.A([]);
-    this.get('battle').find().then((players) => {
+    this.get('players').find().then((players) => {
      players.forEach((player) => {
        currentPlayers.pushObject(player);
      });
@@ -54,7 +54,10 @@ export default Ember.Controller.extend({
         name: this.get('username'),
         health: 100
       };
-      this.get('battle').save(player);
+      this.get('players').save(player).then((player) => {
+        this.set('localStorageProxy.id', player.id);
+      });
+
     },
 
     attack() {
