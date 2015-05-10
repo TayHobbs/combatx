@@ -24,7 +24,7 @@ export default Ember.Service.extend({
   },
 
   find() {
-    let apiUrl = this.apiUrl;
+    let apiUrl = `${this.apiUrl}/leaderboard`;
     return Ember.$.ajax({
       method: 'GET',
       url: apiUrl,
@@ -32,7 +32,6 @@ export default Ember.Service.extend({
         return data;
       }
     });
-    // return Ember.$.getJSON(this.apiUrl);
   },
 
   // Registers the socket
