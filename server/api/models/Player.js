@@ -9,7 +9,9 @@ module.exports = {
     health: {
       type: 'float',
       required: true
-    }
+    },
+
+    damageDealt: { type: 'float' }
 
   }
 };

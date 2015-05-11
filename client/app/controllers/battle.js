@@ -43,33 +43,48 @@ export default Ember.Controller.extend({
       if (message.verb === 'created') {
         this.get('currentPlayers').pushObject(message.data);
       }
+      if (message.verb === 'updated') {
+        let player = Ember.ObjectProxy.create({ content: this.get('currentPlayers').findBy('id', message.data.id) });
+        player.set('damageDealt',  message.data.damageDealt);
+      }
     });
 
   }.on('init'),
+
+  updateDamageDealt: function() {
+    let oldDamageDealt = parseInt(this.get('localStorageProxy.damageDealt'));
+    let player         = { id: this.get('localStorageProxy.id'), damageDealt: oldDamageDealt + 10 };
+
+    this.set('localStorageProxy.damageDealt', oldDamageDealt + 10);
+    this.get('players').update(player);
+  },
 
   actions: {
     login() {
       this.set('localStorageProxy.username', this.get('username'));
       let player = {
         name: this.get('username'),
-        health: 100
+        health: 100,
+        damageDealt: 0
       };
       this.get('players').save(player).then((player) => {
         this.set('localStorageProxy.id', player.id);
+        this.set('localStorageProxy.damageDealt', player.damageDealt);
       });
 
     },
 
     attack() {
+      this.updateDamageDealt();
       let oldHealth = this.get('model').get('firstObject').health;
       let name      = this.get('model').get('firstObject').name;
       let id        = this.get('model').get('firstObject').id;
-      let player    = { id: id, name: name, health: oldHealth - 10 };
+      let enemy     = { id: id, name: name, health: oldHealth - 10 };
 
       if (oldHealth - 10 <= 0) {
-        this.get('enemies').destroy(player);
+        this.get('enemies').destroy(enemy);
       } else {
-        this.get('enemies').update(player);
+        this.get('enemies').update(enemy);
       }
     },
 
@@ -84,4 +99,3 @@ export default Ember.Controller.extend({
   }
 
 });
-
