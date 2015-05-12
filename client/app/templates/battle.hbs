@@ -1,21 +1,29 @@
 {{#if loggedIn}}
-{{#each model as |enemy|}}
-  {{enemy.name}} <br>
-  Health: {{enemy.health}}
-  <br>
-  <br>
-  <button {{action "attack"}}>Attack!</button>
+  <div class="row">
+    <div class="col-sm-offset-3 col-sm-4">
+      {{#each model as |enemy|}}
+        <h2 id="enemy-name">{{enemy.name}}</h2>
+        <h3 id="enemy-health">Health: {{enemy.health}}</h3>
+        <br>
+        <button id="attack" class="btn btn-danger" {{action "attack"}}>Attack!</button>
+      {{else}}
+        <h3>Defeated!</h3>
+        <button class="btn btn-primary" {{action "newEnemy"}}>New Enemy</button>
+      {{/each}}
+    </div>
+    <div class="col-sm-3">
+      {{players-leaderboard players=currentPlayers}}
+    </div>
+  </div>
+
+
 {{else}}
-  <h3>Defeated!</h3>
-  <button {{action "newEnemy"}}>New Enemy</button>
-{{/each}}
-
-<br>
-<br>
-
-{{players-leaderboard players=currentPlayers}}
-{{else}}
-  {{input value=username}}
-<button {{action "login"}}>Join the battle!</button>
-
+  <div class="row">
+    <div class="col-sm-offset-5 col-sm-6">
+      <form {{action "login" on="submit"}}>
+        {{input value=username}}
+        <button type="submit">Join the battle!</button>
+      </form>
+    </div>
+  </div>
 {{/if}}

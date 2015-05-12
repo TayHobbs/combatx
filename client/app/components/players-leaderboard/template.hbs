@@ -1,5 +1,17 @@
-<h2>Leaderboard:</h2>
-{{#each playersByDamageDealt as |player|}}
-  {{player.name}}
-  {{player.damageDealt}}<br>
-{{/each}}
+<h2 id="leaderboard">Leaderboard:</h2>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Name:</th>
+      <th>Damage Dealt:</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each playersByDamageDealt as |player|}}
+      <tr>
+        <td>{{player.name}}</td>
+        <td>{{player.damageDealt}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
