@@ -12,6 +12,9 @@
         <td>{{player.name}}</td>
         <td>{{player.damageDealt}}</td>
       </tr>
+      {{else}}
+      <h6 id="no-damage-dealt">There has been no damage dealt today.</h6>
     {{/each}}
   </tbody>
 </table>
+<p class="help-block">Most damage dealt in the last 24 hours.</p>

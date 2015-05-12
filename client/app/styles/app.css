@@ -17,3 +17,7 @@ body {
 #attack {
     margin-left: 43%;
 }
+
+#no-damage-dealt {
+    text-align: center;
+}
