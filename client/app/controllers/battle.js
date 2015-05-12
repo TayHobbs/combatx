@@ -91,7 +91,7 @@ export default Ember.Controller.extend({
     newEnemy() {
       let enemy = {
         name: Ember.A(['Brothgar', 'Krag\'Nor', 'LagLear']).objectAt(Math.round(Math.random() * 2)),
-        health: Math.round(Math.random() * (10 - 30) * -10)
+        health: Math.round(Math.random() * (2500 - 3000) * -10)
       };
 
       this.get('enemies').save(enemy);
